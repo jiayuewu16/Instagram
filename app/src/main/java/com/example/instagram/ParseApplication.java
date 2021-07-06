@@ -1,9 +1,11 @@
 package com.example.instagram;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

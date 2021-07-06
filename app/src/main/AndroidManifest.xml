@@ -13,6 +13,14 @@
         android:roundIcon="@drawable/instagram_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Instagram">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.parse.SERVER_URL"
@@ -23,14 +31,6 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/back4app_client_key" />
-
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

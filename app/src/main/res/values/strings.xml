@@ -5,5 +5,12 @@
     <!-- Change the following strings as required -->
     <string name="back4app_app_id">ThnuhsPR49RUuxRkK8F4HYiSJw747PbIqxVoNAn3</string>
     <string name="back4app_client_key">l9XVKJjh3XRm9hj4W4GfKIfHiqfDflHAe0rYHNAf</string>
+    <string name="login_button_text">Login</string>
+    <string name="username_hint_text">username</string>
+    <string name="password_hint_text">password</string>
+    <string name="signup_button_text">Sign Up</string>
+    <string name="signout_button_text">Sign Out</string>
+    <string name="login_error_text">Invalid username and/or password.</string>
+    <string name="signup_error_text">That username is taken.</string>
 
 </resources>
