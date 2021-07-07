@@ -1,10 +1,9 @@
-package com.example.instagram;
+package com.example.instagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.instagram.databinding.ActivityMainBinding;
@@ -29,5 +28,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+        startActivity(intent);
     }
 }

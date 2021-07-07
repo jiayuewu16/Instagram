@@ -12,5 +12,7 @@
     <string name="signout_button_text">Sign Out</string>
     <string name="login_error_text">Invalid username and/or password.</string>
     <string name="signup_error_text">That username is taken.</string>
+    <string name="camera_button_text">Take Picture</string>
+    <string name="description_hint_text">Description...</string>
 
 </resources>
