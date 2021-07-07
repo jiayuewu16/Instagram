@@ -40,6 +40,7 @@ public class CreateActivity extends AppCompatActivity {
     final static String APP_TAG = "Instagram";
     final static String TAG = "CreateActivity";
     final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 616;
+    final static String ON_RESUME_KEY = "onResume";
 
     final static int DEFAULT_WIDTH = 500;
 
@@ -53,6 +54,12 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCreateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if (savedInstanceState != null) {
+            photoFile = getPhotoFileUri(photoFileName);
+            Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+            binding.ivPhoto.setImageBitmap(takenImage);
+        }
 
         binding.btCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +152,12 @@ public class CreateActivity extends AppCompatActivity {
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ON_RESUME_KEY, 1);
     }
 
     // Returns the File for a photo stored on disk given the fileName
