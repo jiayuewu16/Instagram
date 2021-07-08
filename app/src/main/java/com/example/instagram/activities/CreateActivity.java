@@ -131,7 +131,7 @@ public class CreateActivity extends AppCompatActivity {
                 photoFile = getPhotoFileUri(photoFileName);
                 Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
                 // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
-                Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImage, DEFAULT_WIDTH);
+                Bitmap resizedBitmap = cropSquare(BitmapScaler.scaleToFitWidth(takenImage, DEFAULT_WIDTH));
 
                 // Configure byte output stream
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -147,7 +147,7 @@ public class CreateActivity extends AppCompatActivity {
                 }
 
                 // Load the taken image into a preview
-                binding.ivPhoto.setImageBitmap(takenImage);
+                binding.ivPhoto.setImageBitmap(resizedBitmap);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -204,5 +204,12 @@ public class CreateActivity extends AppCompatActivity {
         Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
         // Return result
         return rotatedBitmap;
+    }
+
+    private Bitmap cropSquare(Bitmap bitmap) {
+        // Tutorial: https://stackoverflow.com/questions/6908604/android-crop-center-of-bitmap
+        int minLength = Math.min(bitmap.getHeight(), bitmap.getWidth());
+        return Bitmap.createBitmap(bitmap, 0, 0, minLength, minLength);
+
     }
 }
