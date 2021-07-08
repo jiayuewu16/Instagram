@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
             startActivity(intent);
         }
 
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
                             startActivity(intent);
                         } else {
                             // Sign up didn't succeed. Look at the ParseException to figure out what went wrong
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
                             // Hooray! The user is logged in.
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, TimelineActivity.class);
                             startActivity(intent);
                         } else {
                             // Signup failed. Look at the ParseException to see what happened.
