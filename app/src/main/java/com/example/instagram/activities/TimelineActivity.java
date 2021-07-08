@@ -2,6 +2,7 @@ package com.example.instagram.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     final static String TAG = "TimelineActivity";
     ActivityTimelineBinding binding;
+    final static int POSTS_LIMIT = 20;
 
     PostsAdapter adapter;
     List<Post> posts;
@@ -49,14 +53,31 @@ public class TimelineActivity extends AppCompatActivity {
         binding.rvTimeline.setLayoutManager(new LinearLayoutManager(this));
 
         queryPosts();
+
+        binding.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                refreshPosts();
+            }
+        });
+
         /*Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
         startActivity(intent);*/
+    }
+
+    private void refreshPosts() {
+        posts.clear();
+        queryPosts();
+        binding.swipeContainer.setRefreshing(false);
     }
 
     private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(POSTS_LIMIT);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
             @Override
