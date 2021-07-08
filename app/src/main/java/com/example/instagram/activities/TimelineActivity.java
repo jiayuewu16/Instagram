@@ -1,5 +1,6 @@
 package com.example.instagram.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,10 @@ import java.util.List;
 public class TimelineActivity extends AppCompatActivity {
 
     final static String TAG = "TimelineActivity";
-    ActivityTimelineBinding binding;
     final static int POSTS_LIMIT = 20;
+    final static int CREATE_POST = 133;
+
+    ActivityTimelineBinding binding;
 
     PostsAdapter adapter;
     List<Post> posts;
@@ -64,8 +68,13 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        /*Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
-        startActivity(intent);*/
+        binding.fbtCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
+                startActivityForResult(intent, CREATE_POST);
+            }
+        });
     }
 
     private void refreshPosts() {
@@ -94,5 +103,18 @@ public class TimelineActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_POST) {
+            if (resultCode == RESULT_OK) {
+                Post post = Parcels.unwrap(data.getParcelableExtra("post"));
+                posts.add(0, post);
+                adapter.notifyDataSetChanged();
+                binding.rvTimeline.smoothScrollToPosition(0);
+            }
+        }
     }
 }

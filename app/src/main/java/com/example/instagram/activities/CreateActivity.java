@@ -30,6 +30,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.parceler.Parcels;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -101,11 +103,7 @@ public class CreateActivity extends AppCompatActivity {
         });
     }
 
-    private void savePost(String description, ParseUser user, File photoFile) {
-        Post post = new Post();
-        post.setDescription(description);
-        post.setImage(new ParseFile(photoFile));
-        post.setUser(user);
+    private void savePost(Post post) {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -117,9 +115,18 @@ public class CreateActivity extends AppCompatActivity {
                     Log.i(TAG, "Post save was successful!");
                     binding.etDescription.setText("");
                     binding.ivPhoto.setImageResource(0);
+
+                    Intent intent = new Intent();
+                    intent.putExtra("post", Parcels.wrap(post));
+                    CreateActivity.this.setResult(RESULT_OK, intent);
+                    finish();
                 }
             }
         });
+    }
+
+    private void savePost(String description, ParseUser user, File photoFile) {
+        savePost(new Post(user, description, new ParseFile(photoFile)));
     }
 
     @Override

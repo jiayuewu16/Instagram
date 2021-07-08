@@ -8,7 +8,6 @@
     android:layout_margin="10dp">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"
         android:layout_below="@+id/btSignout"
         android:layout_width="match_parent"
@@ -29,4 +28,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:text="@string/signout_button_text" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbtCreate"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:fabCustomSize="80dp"
+        app:maxImageSize="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/swipeContainer"
+        android:layout_marginTop="-85dp"
+        android:layout_marginEnd="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/instagram_new_post_outline_24" />
+
 </RelativeLayout>
