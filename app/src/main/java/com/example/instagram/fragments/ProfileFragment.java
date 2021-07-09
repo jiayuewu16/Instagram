@@ -180,7 +180,8 @@ public class ProfileFragment extends Fragment {
                 // Load the taken image into the profile picture
                 binding.ivProfileImage.setImageBitmap(resizedBitmap);
 
-                photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
+                /*photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
+
                 ParseUser user = ParseUser.getCurrentUser();
                 user.put("profileImage", photoFile);
                 user.saveInBackground(new SaveCallback() {
@@ -194,7 +195,7 @@ public class ProfileFragment extends Fragment {
                             Toast.makeText(getActivity(), "Posted successfully!", Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                });*/
             } else { // Result was a failure
                 Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
