@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
 import com.example.instagram.fragments.CreateFragment;
 import com.example.instagram.fragments.HomeFragment;
+import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         // define your fragments here
         Fragment homeFragment = HomeFragment.newInstance();
-        final Fragment createFragment = new CreateFragment();
-        //final Fragment profileFragment = new ProfileFragment();
+        Fragment createFragment = CreateFragment.newInstance();
+        Fragment profileFragment = ProfileFragment.newInstance();
 
         // handle navigation selection
         binding.bottomNavigation.setOnNavigationItemSelectedListener(
@@ -48,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_create:
                                 fragment = createFragment;
                                 break;
-                            /*case R.id.action_profile:
-                                //fragment = profileFragment;
-                                break;*/
+                            case R.id.action_profile:
+                                fragment = profileFragment;
+                                break;
                         }
-                        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                        fragmentManager.beginTransaction().replace(binding.flContainer.getId(), fragment).commit();
                         return true;
                     }
                 });

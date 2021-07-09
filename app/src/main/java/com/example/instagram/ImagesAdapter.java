@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.activities.DetailsActivity;
-import com.example.instagram.databinding.ItemPostBinding;
+import com.example.instagram.databinding.ItemImageBinding;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 
@@ -19,12 +19,12 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
 
-    public PostsAdapter(Context context, List<Post> posts) {
+    public ImagesAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
@@ -32,7 +32,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemPostBinding binding = ItemPostBinding.inflate(LayoutInflater.from(context));
+        ItemImageBinding binding = ItemImageBinding.inflate(LayoutInflater.from(context));
         return new ViewHolder(binding);
     }
 
@@ -48,17 +48,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ItemPostBinding binding;
+        ItemImageBinding binding;
 
-        public ViewHolder(@NonNull ItemPostBinding binding) {
+        public ViewHolder(@NonNull ItemImageBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
-            binding.tvDescription.setText(post.getDescription());
-            binding.tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(binding.ivPhoto);
