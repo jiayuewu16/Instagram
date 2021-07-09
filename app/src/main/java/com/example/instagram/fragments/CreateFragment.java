@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.instagram.databinding.FragmentCreateBinding;
 import com.example.instagram.models.BitmapScaler;
+import com.example.instagram.models.PhotoUtilities;
 import com.example.instagram.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -35,16 +36,12 @@ import java.io.IOException;
 
 public class CreateFragment extends Fragment {
 
-    final static String APP_TAG = "Instagram";
     final static String TAG = "CreateFragment";
     final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 616;
     final static String ON_RESUME_KEY = "onResume";
 
     FragmentCreateBinding binding;
-
-    String photoFileName = "photo.jpg";
     File photoFile;
-    final static int DEFAULT_WIDTH = 500;
 
     public static CreateFragment newInstance() {
         CreateFragment frag = new CreateFragment();
@@ -65,8 +62,8 @@ public class CreateFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
-            photoFile = getPhotoFileUri(photoFileName);
-            Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+            photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
+            Bitmap takenImage = PhotoUtilities.rotateBitmapOrientation(photoFile.getAbsolutePath());
             binding.ivPhoto.setImageBitmap(takenImage);
         }
 
@@ -79,7 +76,7 @@ public class CreateFragment extends Fragment {
                 // wrap File object into a content provider
                 // required for API >= 24
                 // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-                Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.codepath.fileprovider", getPhotoFileUri(photoFileName));
+                Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.codepath.fileprovider", getPhotoFileUri(PhotoUtilities.photoFileName));
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
                 // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -99,7 +96,7 @@ public class CreateFragment extends Fragment {
                     Toast.makeText(getActivity(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                photoFile = getPhotoFileUri(photoFileName);
+                photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
                 if (photoFile == null || binding.ivPhoto.getDrawable() == null) {
                     Toast.makeText(getActivity(), "There is no image!", Toast.LENGTH_SHORT).show();
                     return;
@@ -118,8 +115,7 @@ public class CreateFragment extends Fragment {
                 if (e != null) {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(getActivity(), "Error while saving!", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Log.i(TAG, "Post save was successful!");
                     Toast.makeText(getActivity(), "Posted successfully!", Toast.LENGTH_SHORT).show();
                     binding.etDescription.setText("");
@@ -138,10 +134,10 @@ public class CreateFragment extends Fragment {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 // by this point we have the camera photo on disk
-                photoFile = getPhotoFileUri(photoFileName);
-                Bitmap takenImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
+                photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
+                Bitmap takenImage = PhotoUtilities.rotateBitmapOrientation(photoFile.getAbsolutePath());
                 // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
-                Bitmap resizedBitmap = cropSquare(BitmapScaler.scaleToFitWidth(takenImage, DEFAULT_WIDTH));
+                Bitmap resizedBitmap = PhotoUtilities.cropSquare(BitmapScaler.scaleToFitWidth(takenImage, PhotoUtilities.DEFAULT_WIDTH));
 
                 // Configure byte output stream
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -175,50 +171,16 @@ public class CreateFragment extends Fragment {
         // Get safe storage directory for photos
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), PhotoUtilities.APP_TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(APP_TAG, "failed to create directory");
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            Log.d(PhotoUtilities.APP_TAG, "failed to create directory");
         }
 
         // Return the file target for the photo based on filename
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
-    }
-
-    public Bitmap rotateBitmapOrientation(String photoFilePath) {
-        // Create and configure BitmapFactory
-        BitmapFactory.Options bounds = new BitmapFactory.Options();
-        bounds.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(photoFilePath, bounds);
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
-        // Read EXIF Data
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(photoFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
-        int rotationAngle = 0;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-        // Rotate Bitmap
-        Matrix matrix = new Matrix();
-        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
-        // Return result
-        return rotatedBitmap;
-    }
-
-    private Bitmap cropSquare(Bitmap bitmap) {
-        // Tutorial: https://stackoverflow.com/questions/6908604/android-crop-center-of-bitmap
-        int minLength = Math.min(bitmap.getHeight(), bitmap.getWidth());
-        return Bitmap.createBitmap(bitmap, 0, 0, minLength, minLength);
     }
 }
