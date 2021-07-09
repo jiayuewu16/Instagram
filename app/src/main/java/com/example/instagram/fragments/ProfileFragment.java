@@ -124,6 +124,16 @@ public class ProfileFragment extends Fragment {
                 refreshPosts();
             }
         });
+
+        binding.btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 
     private void refreshPosts() {
@@ -179,23 +189,6 @@ public class ProfileFragment extends Fragment {
                 }
                 // Load the taken image into the profile picture
                 binding.ivProfileImage.setImageBitmap(resizedBitmap);
-
-                /*photoFile = getPhotoFileUri(PhotoUtilities.photoFileName);
-
-                ParseUser user = ParseUser.getCurrentUser();
-                user.put("profileImage", photoFile);
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Error while saving profile photo", e);
-                            Toast.makeText(getActivity(), "Error while saving!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.i(TAG, "Profile photo save was successful!");
-                            Toast.makeText(getActivity(), "Posted successfully!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });*/
             } else { // Result was a failure
                 Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }

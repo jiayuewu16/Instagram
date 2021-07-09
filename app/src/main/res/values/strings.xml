@@ -17,5 +17,6 @@
     <string name="home_navbar_text">Home</string>
     <string name="create_navbar_text">Create</string>
     <string name="profile_navbar_text">Profile</string>
+    <string name="logout_button_text">Log Out</string>
 
 </resources>
