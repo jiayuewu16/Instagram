@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.instagram.ImagesAdapter;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.activities.LoginActivity;
@@ -22,6 +23,7 @@ import com.example.instagram.databinding.FragmentProfileBinding;
 import com.example.instagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -63,6 +65,15 @@ public class ProfileFragment extends Fragment {
 
         posts = new ArrayList();
         adapter = new ImagesAdapter(getActivity(), posts);
+
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseFile profileImage = (ParseFile)user.get("profileImage");
+
+        if (profileImage != null) {
+            Glide.with(getActivity()).load(profileImage.getUrl()).into(binding.ivProfileImage);
+        }
+
+        binding.tvUsername.setText(String.format("@%s", user.getUsername()));
 
         binding.rvTimeline.setAdapter(adapter);
         binding.rvTimeline.setLayoutManager(new GridLayoutManager(getActivity(), NUM_GRID_LAYOUT_COLUMNS));

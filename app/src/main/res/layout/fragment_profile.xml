@@ -6,8 +6,29 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/default_profile_picture_image"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_below="@id/ivProfileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        tools:text="@username123" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
+        android:layout_below="@id/tvUsername"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,7 +36,6 @@
             android:id="@+id/rvTimeline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
             android:numColumns="2"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
