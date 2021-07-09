@@ -68,13 +68,13 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        binding.fbtCreate.setOnClickListener(new View.OnClickListener() {
+        /*binding.fbtCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
                 startActivityForResult(intent, CREATE_POST);
             }
-        });
+        });*/
     }
 
     private void refreshPosts() {

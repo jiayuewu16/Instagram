@@ -6,6 +6,12 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    ext {
+        appCompatVersion = '1.0.0'
+        designSupportVersion = '1.0.0'
+        recyclerViewVersion = '1.0.0'
+    }
+
     defaultConfig {
         applicationId "com.example.instagram"
         minSdkVersion 21

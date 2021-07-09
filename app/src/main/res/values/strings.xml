@@ -13,6 +13,9 @@
     <string name="login_error_text">Invalid username and/or password.</string>
     <string name="signup_error_text">That username is taken.</string>
     <string name="camera_button_text">Take Picture</string>
-    <string name="description_hint_text">Description...</string>
+    <string name="description_hint_text">Description…</string>
+    <string name="home_navbar_text">Home</string>
+    <string name="create_navbar_text">Create</string>
+    <string name="profile_navbar_text">Profile</string>
 
 </resources>

@@ -7,7 +7,6 @@
     tools:context=".activities.CreateActivity"
     android:orientation="vertical">
 
-
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="match_parent"
@@ -48,4 +47,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="Submit" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_navigation" />
 </RelativeLayout>
