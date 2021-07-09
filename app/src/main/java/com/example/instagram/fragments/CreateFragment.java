@@ -13,45 +13,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.instagram.PostsAdapter;
-import com.example.instagram.activities.CreateActivity;
-import com.example.instagram.activities.LoginActivity;
-import com.example.instagram.activities.TimelineActivity;
-import com.example.instagram.databinding.ActivityCreateBinding;
-import com.example.instagram.databinding.ActivityTimelineBinding;
 import com.example.instagram.databinding.FragmentCreateBinding;
-import com.example.instagram.databinding.FragmentHomeBinding;
 import com.example.instagram.models.BitmapScaler;
 import com.example.instagram.models.Post;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import org.json.JSONException;
-import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.Headers;
 
 public class CreateFragment extends Fragment {
 
@@ -130,7 +110,6 @@ public class CreateFragment extends Fragment {
         });
 
     }
-
 
     private void savePost(Post post) {
         post.saveInBackground(new SaveCallback() {

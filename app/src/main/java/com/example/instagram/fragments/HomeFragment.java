@@ -9,15 +9,12 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.activities.LoginActivity;
-import com.example.instagram.activities.TimelineActivity;
-import com.example.instagram.databinding.ActivityTimelineBinding;
 import com.example.instagram.databinding.FragmentHomeBinding;
 import com.example.instagram.models.Post;
 import com.parse.FindCallback;
