@@ -2,18 +2,22 @@ package com.example.instagram.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.instagram.R;
 import com.example.instagram.databinding.ActivityMainBinding;
+import com.example.instagram.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    final static String TAG = "MainActivity";
     ActivityMainBinding binding;
 
     @Override
@@ -22,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         // define your fragments here
-        final Fragment homeFragment = new HomeFragment();
-        final Fragment createFragment = new CreateFragment();
+        Fragment homeFragment = HomeFragment.newInstance();
+        //final Fragment createFragment = new CreateFragment();
         //final Fragment profileFragment = new ProfileFragment();
 
         // handle navigation selection
@@ -40,17 +44,18 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_home:
                                 fragment = homeFragment;
                                 break;
-                            case R.id.action_create:
+                            /*case R.id.action_create:
                                 fragment = createFragment;
                                 break;
                             case R.id.action_profile:
                                 //fragment = profileFragment;
-                                break;
+                                break;*/
                         }
                         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                         return true;
                     }
                 });
+
         // Set default selection
         binding.bottomNavigation.setSelectedItemId(R.id.action_home);
 
