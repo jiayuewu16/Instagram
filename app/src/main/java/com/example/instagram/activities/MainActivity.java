@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(getResources().getDrawable(R.drawable.instagram_icon));
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         // define your fragments here

@@ -16,9 +16,11 @@
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                tools:text="username" />
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/ivProfileImage"
+                android:textSize="20sp"
+                tools:text="@username" />
 
             <ImageView
                 android:id="@+id/ivPhoto"
@@ -38,14 +40,60 @@
                 android:layout_marginTop="5dp"
                 tools:text="lorem ipsum description text :D" />
 
+            <ImageView
+                android:id="@+id/ivLike"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ufi_heart" />
+
+            <ImageView
+                android:id="@+id/ivComment"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/ivLike"
+                app:srcCompat="@drawable/ufi_comment" />
+
+            <ImageView
+                android:id="@+id/ivDirect"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/ivComment"
+                app:srcCompat="@drawable/direct" />
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivLike"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:text="0 likes" />
+
+            <ImageView
+                android:id="@+id/ivProfileImage"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/default_profile_picture_image" />
+
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
-                tools:text="just now"/>
-
+                tools:text="just now" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

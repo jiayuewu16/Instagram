@@ -11,11 +11,13 @@
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ivLogoText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
         android:gravity="top"
-        android:inputType="textMultiLine"
-        android:hint="@string/username_hint_text"/>
+        android:hint="@string/username_hint_text"
+        android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -58,4 +60,13 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:textColor="@color/red"/>
+
+    <ImageView
+        android:id="@+id/ivLogoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/nav_logo_whiteout" />
 </RelativeLayout>
